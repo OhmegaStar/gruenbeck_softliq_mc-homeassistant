@@ -1,6 +1,6 @@
 # Grünbeck softliQ MC – Home Assistant Integration
 
-A fully local, zero‑cloud integration for **Grünbeck softliQ:MC** water softeners.
+A fully local, zero‑cloud Home Assistant integration for **Grünbeck softliQ:MC** water softeners.
 
 
 Supports:
