@@ -1,0 +1,8 @@
+{
+  "name": "Grünbeck softliQ MC",
+  "content_in_root": false,
+  "domains": ["gruenbeck_softliq_mc"],
+  "country": ["DK", "DE", "NL", "AT", "CH"],
+  "homeassistant": "2024.1.0",
+  "render_readme": true
+}

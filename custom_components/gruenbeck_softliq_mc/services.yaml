@@ -1,0 +1,15 @@
+force_regeneration:
+  name: Force regeneration
+  description: Start a regeneration cycle immediately.
+  fields:
+    entity_id:
+      description: Any Grünbeck MC sensor entity
+      example: sensor.raw_water_hardness
+
+send_test_email:
+  name: Send test email
+  description: Trigger the test email function on the device.
+  fields:
+    entity_id:
+      description: Any Grünbeck MC sensor entity
+      example: sensor.raw_water_hardness

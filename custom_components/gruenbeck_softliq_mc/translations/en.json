@@ -1,0 +1,42 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Grünbeck softliQ MC",
+        "description": "Connect to your Grünbeck softliQ MC water softener.",
+        "data": {
+          "host": "Device IP address",
+          "scan_interval": "Scan interval (seconds)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect to the device."
+    },
+    "abort": {
+      "already_configured": "This device is already configured."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "gruenbeck_softliq_mc": {
+        "name": "Grünbeck softliQ MC Sensor"
+      }
+    },
+    "switch": {
+      "gruenbeck_softliq_mc": {
+        "name": "Grünbeck softliQ MC Switch"
+      }
+    }
+  },
+  "services": {
+    "force_regeneration": {
+      "name": "Force regeneration",
+      "description": "Start a regeneration cycle immediately."
+    },
+    "send_test_email": {
+      "name": "Send test email",
+      "description": "Trigger the test email function on the device."
+    }
+  }
+}

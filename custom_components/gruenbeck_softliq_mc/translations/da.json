@@ -1,0 +1,42 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Grünbeck softliQ MC",
+        "description": "Forbind til din Grünbeck softliQ MC blødgører.",
+        "data": {
+          "host": "Enhedens IP-adresse",
+          "scan_interval": "Opdateringsinterval (sekunder)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Kan ikke forbinde til enheden."
+    },
+    "abort": {
+      "already_configured": "Denne enhed er allerede konfigureret."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "gruenbeck_softliq_mc": {
+        "name": "Grünbeck softliQ MC Sensor"
+      }
+    },
+    "switch": {
+      "gruenbeck_softliq_mc": {
+        "name": "Grünbeck softliQ MC Kontakt"
+      }
+    }
+  },
+  "services": {
+    "force_regeneration": {
+      "name": "Tving regeneration",
+      "description": "Start en regenerationscyklus med det samme."
+    },
+    "send_test_email": {
+      "name": "Send testmail",
+      "description": "Udløs testmail-funktionen på enheden."
+    }
+  }
+}
