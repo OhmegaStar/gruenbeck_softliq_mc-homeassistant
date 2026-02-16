@@ -37,7 +37,7 @@ Supports:
 ### ✔ Local API
 Uses the built‑in Grünbeck Webserver:
 
-http://<device-ip>/mux_http
+http://[your-device-local-ip]/mux_http
 
 
 No cloud. No external dependencies.

@@ -1,0 +1,41 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "New version number (e.g. 0.1.1)"
+        required: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set version
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          echo "Updating manifest.json to version $VERSION"
+          jq ".version = \"$VERSION\"" custom_components/gruenbeck_softliq_mc/manifest.json > manifest.tmp
+          mv manifest.tmp custom_components/gruenbeck_softliq_mc/manifest.json
+
+      - name: Commit version bump
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add custom_components/gruenbeck_softliq_mc/manifest.json
+          git commit -m "Bump version to $VERSION"
+          git tag "v$VERSION"
+          git push
+          git push --tags
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "v${{ github.event.inputs.version }}"
+          name: "v${{ github.event.inputs.version }}"
+          generate_release_notes: true
