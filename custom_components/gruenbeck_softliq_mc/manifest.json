@@ -1,7 +1,7 @@
 {
   "domain": "gruenbeck_softliq_mc",
   "name": "Grünbeck softliQ MC",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "documentation": "https://github.com/ohmegastar/gruenbeck_softliq_mc-homeassistant",
   "requirements": [
     "aiohttp>=3.9.0",
