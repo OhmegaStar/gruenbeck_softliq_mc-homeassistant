@@ -1,6 +1,11 @@
 from __future__ import annotations
 
-from homeassistant.components.sensor import SensorEntity
+from homeassistant.components.sensor import (
+    SensorEntity,
+    SensorDeviceClass,
+    SensorStateClass,
+)
+from homeassistant.const import UnitOfVolume
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -50,6 +55,18 @@ class GruenbeckMCSensor(SensorEntity):
         self._attr_name = meta.get("name", param)
         self._attr_native_unit_of_measurement = meta.get("unit")
         self._state = None
+
+        # Device class
+        if meta.get("device_class") == "water":
+            self._attr_device_class = SensorDeviceClass.WATER
+
+        # State class
+        if meta.get("state_class") == "measurement":
+            self._attr_state_class = SensorStateClass.MEASUREMENT
+        elif meta.get("state_class") == "total":
+            self._attr_state_class = SensorStateClass.TOTAL
+        elif meta.get("state_class") == "total_increasing":
+            self._attr_state_class = SensorStateClass.TOTAL_INCREASING
 
     @property
     def native_value(self):

@@ -5,8 +5,9 @@ from datetime import timedelta
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers import aiohttp_client
 
-from .const import DOMAIN, CONF_HOST, CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL
+from .const import DOMAIN, CONF_NAME, CONF_HOST, CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL
 from .gruenbeck_mc import GruenbeckMC
 from .coordinator import GruenbeckCoordinator
 
@@ -16,10 +17,16 @@ PLATFORMS = ["sensor", "switch"]
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
-    host = entry.data[CONF_HOST]
+    host = entry.options.get(CONF_HOST)
     scan_interval = entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)
+    name = entry.options.get(CONF_NAME, entry.title)
 
-    client = GruenbeckMC(host)
+    # Get HA-managed aiohttp session
+    session = aiohttp_client.async_get_clientsession(hass)
+
+    # Create client using the factory
+    client = await GruenbeckMC.create(host, session)
+
     coordinator = GruenbeckCoordinator(
         hass,
         client,

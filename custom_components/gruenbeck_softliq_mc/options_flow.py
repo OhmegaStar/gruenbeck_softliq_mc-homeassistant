@@ -5,7 +5,6 @@ import voluptuous as vol
 
 from homeassistant import config_entries
 from homeassistant.core import HomeAssistant
-from homeassistant.data_entry_flow import FlowResult
 from homeassistant.const import CONF_HOST, CONF_NAME
 
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
@@ -18,7 +17,6 @@ from .const import (
     DEFAULT_SCAN_INTERVAL,
 )
 from .gruenbeck_mc import GruenbeckMC
-from .options_flow import GruenbeckOptionsFlowHandler
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -34,12 +32,14 @@ async def _validate_host(hass: HomeAssistant, host: str) -> bool:
     return True
 
 
-class GruenbeckConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    """Handle the initial setup flow."""
+class GruenbeckOptionsFlowHandler(config_entries.OptionsFlow):
+    """Handle options flow for Grünbeck softliQ MC."""
 
-    VERSION = 1
+    def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
+        self.config_entry = config_entry
 
-    async def async_step_user(self, user_input=None) -> FlowResult:
+    async def async_step_init(self, user_input=None):
+        """Manage the options."""
         errors = {}
 
         if user_input is not None:
@@ -52,32 +52,31 @@ class GruenbeckConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             except Exception:
                 errors["base"] = "cannot_connect"
             else:
-                # Store everything in options so it can be changed later
                 return self.async_create_entry(
-                    title=name,
-                    data={},  # keep empty so all values remain editable
-                    options={
+                    title="",
+                    data={
                         CONF_NAME: name,
                         CONF_HOST: host,
                         CONF_SCAN_INTERVAL: scan,
                     },
                 )
 
+        # Load current values
+        current = self.config_entry.options
+
         data_schema = vol.Schema(
             {
-                vol.Required(CONF_NAME): str,
-                vol.Required(CONF_HOST): str,
-                vol.Optional(CONF_SCAN_INTERVAL, default=DEFAULT_SCAN_INTERVAL): int,
+                vol.Required(CONF_NAME, default=current.get(CONF_NAME)): str,
+                vol.Required(CONF_HOST, default=current.get(CONF_HOST)): str,
+                vol.Required(
+                    CONF_SCAN_INTERVAL,
+                    default=current.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL),
+                ): int,
             }
         )
 
         return self.async_show_form(
-            step_id="user",
+            step_id="init",
             data_schema=data_schema,
             errors=errors,
         )
-
-    @staticmethod
-    def async_get_options_flow(config_entry):
-        """Return the options flow handler."""
-        return GruenbeckOptionsFlowHandler(config_entry)

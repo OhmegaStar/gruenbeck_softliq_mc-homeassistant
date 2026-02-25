@@ -26,7 +26,8 @@ class GruenbeckCoordinator(DataUpdateCoordinator):
 
         # Split parameters into normal and code=005
         self.normal_params = [p for p, m in PARAMETERS.items() if "code" not in m]
-        self.code_params = [p for p, m in PARAMETERS.items() if m.get("code") == "005"]
+        self.code_005_params = [p for p, m in PARAMETERS.items() if m.get("code") == "005"]
+        self.code_290_params = [p for p, m in PARAMETERS.items() if m.get("code") == "290"]
 
     async def _async_update_data(self):
         """Fetch all parameters in batches."""
@@ -35,13 +36,18 @@ class GruenbeckCoordinator(DataUpdateCoordinator):
             normal_resp = await self.client.get_params(self.normal_params)
 
             # Code=005 parameters
-            code_resp = await self.client.get_params(self.code_params, code="005")
+            code_005_resp = await self.client.get_params(self.code_005_params, code="005")
+
+            # Code=290 parameters
+            code_290_resp = await self.client.get_params(self.code_290_params, code="290")
 
             data = {}
             if "data" in normal_resp:
                 data.update(normal_resp["data"])
-            if "data" in code_resp:
-                data.update(code_resp["data"])
+            if "data" in code_005_resp:
+                data.update(code_005_resp["data"])
+            if "data" in code_290_resp:
+                data.update(code_290_resp["data"])
 
             return data
 
