@@ -1,11 +1,15 @@
 import aiohttp
 import asyncio
 import base64
+import re
+import logging
 import time
 import xmltodict
 from aiohttp import ClientSession, ClientTimeout, ServerDisconnectedError
 
 from .parameter_map import PARAMETERS  # adjust import if needed
+
+_LOGGER = logging.getLogger(__name__)
 
 
 class GruenbeckMC:
@@ -103,6 +107,7 @@ class GruenbeckMC:
             try:
                 value = base64.b64decode(value).decode("utf-8")
             except Exception:
+                _LOGGER.debug("_process_value: failed to base64-decode param %s value=%r", param, value)
                 return value  # fail silently, or log if desired
 
         # Dict translation (if defined)
@@ -110,7 +115,46 @@ class GruenbeckMC:
         if mapping:
             return mapping.get(str(value), value)
 
+        # If parameter is declared as numeric, try to coerce to a Python number.
+        # Some device values include their unit (e.g. "0.0l") which must be
+        # stripped before conversion — extract the first numeric substring.
+        ptype = meta.get("type")
+        if ptype and isinstance(ptype, str) and ptype.lower() == "number":
+            # If it's already numeric, return as-is
+            if isinstance(value, (int, float)):
+                return value
+
+            if isinstance(value, str):
+                # Normalize comma decimals to dot
+                v = value.strip().replace(",", ".")
+                m = re.search(r"[-+]?[0-9]*\.?[0-9]+(?:[eE][-+]?[0-9]+)?", v)
+                if m:
+                    num_str = m.group(0)
+                    try:
+                        # Prefer int when there's no decimal point
+                        if "." in num_str or "e" in num_str.lower():
+                            return float(num_str)
+                        return int(num_str)
+                    except Exception:
+                        _LOGGER.debug("_process_value: numeric parse error for %s value=%r", param, value)
+                        # Fall through and return original string on parse error
+                        return value
+                else:
+                    _LOGGER.debug("_process_value: no numeric substring found for %s value=%r", param, value)
+                    return value
+
         return value
+
+        # Date/time cleanup: strip German 'Uhr' suffix from datetime strings
+        # when the parameter unit indicates a date or time value.
+        unit = meta.get("unit")
+        if isinstance(unit, str) and ("date" in unit.lower() or "time" in unit.lower()):
+            if isinstance(value, str):
+                try:
+                    value = re.sub(r"\s*Uhr\s*$", "", value, flags=re.IGNORECASE).strip()
+                except Exception:
+                    # Non-fatal: leave original value on any unexpected error
+                    pass
 
     # ---------------------------------------------------------
     # PUBLIC API
@@ -131,10 +175,21 @@ class GruenbeckMC:
         #return await self._post(payload)
         data = await self._post(payload)
 
+        # If the lower-level _post returned a {'data': {param: value, ...}}
+        # mapping (some code paths/tools produce this shape), prefer that
+        # and apply processing (base64 decode / mapping) to the value.
+        if isinstance(data, dict) and "data" in data and isinstance(data["data"], dict):
+            if param in data["data"]:
+                return self._process_value(param, data["data"][param])
+            # param not present — log raw response and return it so caller can inspect
+            _LOGGER.debug("get_param: param %s not present in data response, returning raw response: %s", param, data)
+            return data
+
         try:
             value = data["root"]["param"]["value"]  # adjust to real XML structure
             return self._process_value(param, value)
         except Exception:
+            _LOGGER.debug("get_param: unexpected response structure for %s: %s", param, data)
             return data
 
     async def get_params(self, params: list[str], code: str | None = None):
@@ -151,8 +206,14 @@ class GruenbeckMC:
         #return await self._post(payload)
         data = await self._post(payload)
 
-        processed = {}
+        # If we get {'data': {param: value, ...}} use that and process values
+        if isinstance(data, dict) and "data" in data and isinstance(data["data"], dict):
+            processed = {}
+            for p, v in data["data"].items():
+                processed[p] = self._process_value(p, v)
+            return processed
 
+        processed = {}
         try:
             returned_params = data["root"]["param"]  # adjust to real structure
 
@@ -167,6 +228,7 @@ class GruenbeckMC:
             return processed
 
         except Exception:
+            _LOGGER.debug("get_params: unexpected response structure for params %s: %s", params, data)
             return data
 
     async def set_param(self, param: str, value: str, code: str | None = None, base64_encode=False):

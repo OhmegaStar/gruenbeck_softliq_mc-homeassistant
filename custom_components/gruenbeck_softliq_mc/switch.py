@@ -63,6 +63,23 @@ class GruenbeckMCSwitch(SwitchEntity):
 
     async def async_update(self):
         resp = await self._client.get_param(self._param)
-        data = resp.get("data", {})
-        if self._param in data:
-            self._state = data[self._param] in ("1", "true", "True")
+
+        # Handle scalar responses (value returned directly)
+        if isinstance(resp, (int, float, str)):
+            val = resp
+        elif isinstance(resp, dict):
+            data = resp.get("data", {})
+            # If param present in mapping
+            if self._param in data:
+                val = data[self._param]
+            else:
+                # Fallback: if only one key besides "code"
+                keys = [k for k in data.keys() if k != "code"]
+                val = data[keys[0]] if len(keys) == 1 else None
+        else:
+            val = None
+
+        if val is None:
+            return
+
+        self._state = str(val) in ("1", "true", "True")

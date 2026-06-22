@@ -76,17 +76,29 @@ class GruenbeckMCSensor(SensorEntity):
         """Fetch the latest value from the Grünbeck MC device."""
         code = self._meta.get("code")
         resp = await self._client.get_param(self._param, code=code)
-
-        data = resp.get("data", {})
-
-        # Normal case: parameter is present
-        if self._param in data:
-            self._state = data[self._param]
+        # `get_param` may return a scalar (int/float/str) when it can
+        # directly return the processed value for the requested parameter.
+        # It may also return a dict containing a `data` mapping or other
+        # raw response shapes. Handle scalars first to avoid AttributeError.
+        if isinstance(resp, (int, float, str)):
+            self._state = resp
             return
 
-        # Fallback: if only one key besides "code"
-        keys = [k for k in data.keys() if k != "code"]
-        if len(keys) == 1:
-            self._state = data[keys[0]]
-        else:
-            self._state = None
+        # If we got a dict-like response, prefer the `data` mapping if present.
+        if isinstance(resp, dict):
+            data = resp.get("data") if isinstance(resp.get("data"), dict) else resp
+
+            # Normal case: parameter is present in mapping
+            if isinstance(data, dict) and self._param in data:
+                self._state = data[self._param]
+                return
+
+            # Fallback: if only one key besides "code"
+            if isinstance(data, dict):
+                keys = [k for k in data.keys() if k != "code"]
+                if len(keys) == 1:
+                    self._state = data[keys[0]]
+                    return
+
+        # Anything else: clear state so Home Assistant shows unavailable
+        self._state = None

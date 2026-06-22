@@ -36,7 +36,9 @@ class GruenbeckOptionsFlowHandler(config_entries.OptionsFlow):
     """Handle options flow for Grünbeck softliQ MC."""
 
     def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
-        self.config_entry = config_entry
+        # Store the config entry on a private attribute to avoid
+        # clobbering the read-only `config_entry` property on the base class.
+        self._config_entry = config_entry
 
     async def async_step_init(self, user_input=None):
         """Manage the options."""
@@ -62,7 +64,7 @@ class GruenbeckOptionsFlowHandler(config_entries.OptionsFlow):
                 )
 
         # Load current values
-        current = self.config_entry.options
+        current = self._config_entry.options
 
         data_schema = vol.Schema(
             {
