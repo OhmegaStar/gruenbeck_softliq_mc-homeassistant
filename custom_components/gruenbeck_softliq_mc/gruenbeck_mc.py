@@ -19,17 +19,32 @@ class GruenbeckMC:
     """
 
     @staticmethod
-    async def create(host: str, session: ClientSession):
-        """Factory method used by Home Assistant to create the client."""
+    async def create(host: str, session: ClientSession | None = None):
+        """Factory method used by Home Assistant to create the client.
+
+        `session` is optional; when a session is provided it is owned by
+        the caller (Home Assistant) and MUST NOT be closed by this client.
+        If no session is provided, the client will create and own its own
+        `aiohttp.ClientSession` which will be closed on `close()`.
+        """
         client = GruenbeckMC(host, session)
         await client._init()
         return client
 
-    def __init__(self, host: str, session: ClientSession, request_interval: int = 1):
+    def __init__(self, host: str, session: ClientSession | None = None, request_interval_ms: int = 20):
+        # Accept a None session for standalone usage; create our own in that case
         self.host = host
-        self.session = session
+        if session is None:
+            # We create a dedicated ClientSession and mark ownership so we
+            # can safely close it later. Import here to avoid top-level
+            # dependency issues in Home Assistant.
+            self.session = aiohttp.ClientSession()
+            self._own_session = True
+        else:
+            self.session = session
+            self._own_session = False
         self.last_request = 0
-        self.request_interval = request_interval
+        self.request_interval = request_interval_ms / 1000.0
         self.connected = False
         self._lock = asyncio.Lock()
 
@@ -48,8 +63,11 @@ class GruenbeckMC:
 
     async def close(self):
         """Close the aiohttp session if we created it."""
-        if self.session and not self.session.closed:
-            await self.session.close()
+        # Only close sessions that this client created to avoid closing
+        # Home Assistant's shared aiohttp session.
+        if getattr(self, "_own_session", False):
+            if self.session and not self.session.closed:
+                await self.session.close()
 
     async def _throttle(self):
         now = time.monotonic()

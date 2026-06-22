@@ -49,12 +49,12 @@ PARAMETERS = {
     # Current Values In General:
     # ---------------------------------------------------------
     #id=943&show=D_A_1_7|D_A_2_3|D_A_1_6|D_A_2_2|D_K_1|D_K_2|D_Y_5|D_Y_13~
-    "D_A_1_7": {"name": "Current flow total", "unit": "m3/h", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
+    "D_A_1_7": {"name": "Current flow total", "unit": "m³/h", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
     "D_A_2_3": {"name": "Salt range", "unit": "days", "type": "string", "dict": None, "access": "r", "base64": False, "code": None},
     "D_A_1_6": {"name": "Actual value soft water hardness", "unit": "°dH", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
     "D_A_2_2": {"name": "Days till Maintenance Due", "unit": "days", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
     "D_K_1": {"name": "Number of Regenerations", "unit": None, "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
-    "D_K_2": {"name": "Soft Water Volume", "unit": "m3", "type": "number", "dict": None, "access": "r", "base64": False, "code": None, "device_class": "water", "state_class": "total_increasing"},
+    "D_K_2": {"name": "Soft Water Volume", "unit": "m³", "type": "number", "dict": None, "access": "r", "base64": False, "code": None, "device_class": "water", "state_class": "total_increasing"},
     "D_Y_5": {"name": "Current Regeneration Step", "unit": None, "type": "String", "dict": {"0": "No Regeneration", "1": "Fill Brine Tank", "2": "Salting", "3": "Slow Rinsing", "4": "Backwashing", "5": "Washing Out"}, "access": "r", "base64": False, "code": None},
     "D_Y_13": {"name": "Exchange Tank In Operation", "unit": None, "type": "String", "dict": {"0": "Both Exchange Tanks Disrupted", "1": "Only Exchange Tank 1", "2": "Only Exchange Tank 2", "3": "Both Exchanger Tanks"}, "access": "r", "base64": False, "code": None},
     #{'data': {'code': 'ok', 'D_A_1_7': '0.00', 'D_A_2_3': '99', 'D_A_1_6': '4', 'D_A_2_2': '242', 'D_K_1': '6940', 'D_K_2': '2534', 'D_Y_5': '0', 'D_Y_13': '3'}}
@@ -67,17 +67,17 @@ PARAMETERS = {
     # ---------------------------------------------------------
     #id=943&show=D_A_1_1|D_A_1_3|D_A_1_2|D_Y_10_1|D_A_2_1|D_A_3_1|D_A_1_4|D_A_1_8|D_A_1_5|D_Y_10_2|D_A_2_4|D_A_3_4~
     #Tank 1
-    "D_A_1_1": {"name": "Tank 1 Current Flow", "unit": "m3/h", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
-    "D_A_1_3": {"name": "Tank 1 Capacity Rate", "unit": "m3 x °dH", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
-    "D_A_1_2": {"name": "Tank 1 Residual Capacity", "unit": "m3", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
+    "D_A_1_1": {"name": "Tank 1 Current Flow", "unit": "m³/h", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
+    "D_A_1_3": {"name": "Tank 1 Capacity Rate", "unit": "m³ x °dH", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
+    "D_A_1_2": {"name": "Tank 1 Residual Capacity", "unit": "m³", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
     "D_Y_10_1": {"name": "Tank 1 Capacity Remanining %", "unit": "%", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
     "D_A_2_1": {"name": "Tank 1 Remanining Duration ro Residual Quantity Current Step", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
     "D_A_3_1": {"name": "Tank 1 Time of Last Regeneration", "unit": "date-time", "type": "string", "dict": None, "access": "r", "base64": False, "code": None},
 
     #Tank 2
-    "D_A_1_4": {"name": "Tank 2 Current Flow", "unit": "m3/h", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
-    "D_A_1_8": {"name": "Tank 2 Capacity Rate", "unit": "m3 x °dH", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
-    "D_A_1_5": {"name": "Tank 2 Residual Capacity", "unit": "m3", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
+    "D_A_1_4": {"name": "Tank 2 Current Flow", "unit": "m³/h", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
+    "D_A_1_8": {"name": "Tank 2 Capacity Rate", "unit": "m³ x °dH", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
+    "D_A_1_5": {"name": "Tank 2 Residual Capacity", "unit": "m³", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
     "D_Y_10_2": {"name": "Tank 2 Capacity Remanining %", "unit": "%", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
     "D_A_2_4": {"name": "Tank 2 Remanining Duration ro Residual Quantity Current Step", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
     "D_A_3_4": {"name": "Tank 2 Time of Last Regeneration", "unit": "date-time", "type": "string", "dict": None, "access": "r", "base64": False, "code": None},
@@ -222,15 +222,15 @@ PARAMETERS = {
     #"D_F_8": {"name": "Find Reference Position Exchange Tank 1", "unit": None, "type": "string", "dict": {"0": "No", "1": "Yes"}, "access": "rw", "base64": False, "code": "005"},
     #"D_F_9": {"name": "Find Reference Position Exchange Tank 1", "unit": None, "type": "string", "dict": {"0": "No", "1": "Yes"}, "access": "rw", "base64": False, "code": "005"},
  #   "D_G_5": {"name": "Fill Brine Tank Operating Vater Volume", "unit": None, "type": "string", "dict": {"0": "No", "1": "Yes"}, "access": "rw", "base64": False, "code": "005"},
-    "D_K_18": {"name": "Soft Water Volume Exchanger 1", "unit": "m3", "type": "number", "dict": None, "access": "r", "base64": False, "code": "005"},
-    "D_K_19": {"name": "Soft Water Volume Exchanger 2", "unit": "m3", "type": "number", "dict": None, "access": "r", "base64": False, "code": "005"},
-    "D_K_20": {"name": "Raw Water Volume Blending", "unit": "m3", "type": "number", "dict": None, "access": "r", "base64": False, "code": "005"},
+    "D_K_18": {"name": "Soft Water Volume Exchanger 1", "unit": "m³", "type": "number", "dict": None, "access": "r", "base64": False, "code": "005"},
+    "D_K_19": {"name": "Soft Water Volume Exchanger 2", "unit": "m³", "type": "number", "dict": None, "access": "r", "base64": False, "code": "005"},
+    "D_K_20": {"name": "Raw Water Volume Blending", "unit": "m³", "type": "number", "dict": None, "access": "r", "base64": False, "code": "005"},
     "D_K_21": {"name": "Make-up Water Volume", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "005"},
-    "D_K_3": {"name": "Flow Rate Peak Value Parallel Operation", "unit": "m3/h", "type": "number", "dict": None, "access": "r", "base64": False, "code": "005"},
+    "D_K_3": {"name": "Flow Rate Peak Value Parallel Operation", "unit": "m³/h", "type": "number", "dict": None, "access": "r", "base64": False, "code": "005"},
     "D_K_4": {"name": "Time Counter Nominal Flow Exceeded Parallel Operation", "unit": "Min", "type": "number", "dict": None, "access": "r", "base64": False, "code": "005"},
-    "D_K_14": {"name": "Flow Rate Peak Value Exchanger 1", "unit": "m3/h", "type": "number", "dict": None, "access": "r", "base64": False, "code": "005"},
+    "D_K_14": {"name": "Flow Rate Peak Value Exchanger 1", "unit": "m³/h", "type": "number", "dict": None, "access": "r", "base64": False, "code": "005"},
     "D_K_15": {"name": "Time Counter Nominal Flow Exceeded Exchanger 1", "unit": "Min", "type": "number", "dict": None, "access": "r", "base64": False, "code": "005"},
-    "D_K_16": {"name": "Flow Rate Peak Value Exchanger 2", "unit": "m3/h", "type": "number", "dict": None, "access": "r", "base64": False, "code": "005"},
+    "D_K_16": {"name": "Flow Rate Peak Value Exchanger 2", "unit": "m³/h", "type": "number", "dict": None, "access": "r", "base64": False, "code": "005"},
     "D_K_17": {"name": "Time Counter Nominal Flow Exceeded Exchanger 2", "unit": "Min", "type": "number", "dict": None, "access": "r", "base64": False, "code": "005"},
  #   "D_F_10": {"name": "Soft Water Sample Tank 1", "unit": None, "type": "string", "dict": {"0": "No", "1": "Yes"}, "access": "rw", "base64": False, "code": "005"},
  #   "D_F_11": {"name": "Soft Water Sample Tank 2", "unit": None, "type": "string", "dict": {"0": "No", "1": "Yes"}, "access": "rw", "base64": False, "code": "005"},
