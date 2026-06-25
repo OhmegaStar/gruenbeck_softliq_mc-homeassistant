@@ -4,9 +4,9 @@ import base64
 import re
 import logging
 import time
-import datetime
+from datetime import datetime
 import xmltodict
-from aiohttp import ClientSession, ClientTimeout, ServerDisconnectedError
+from aiohttp import ClientSession, ClientTimeout, ServerDisconnectedError, ClientConnectionError
 
 from .parameter_map import PARAMETERS  # adjust import if needed
 
@@ -53,6 +53,10 @@ class GruenbeckMC:
         self.connected = False
         self._lock = asyncio.Lock()
 
+        self._connection_attempts = 0
+        self._connection_successes = 0
+        self._connection_failures = 0
+
     async def _init(self):
         """Test connectivity by requesting a harmless parameter.
             D_Y_6 = Software Version of the device
@@ -64,6 +68,24 @@ class GruenbeckMC:
         except Exception:
             self.connected = False
             raise
+
+    @property
+    def connection_attempt_count(self) -> int:
+        return self._connection_attempts
+
+    @property
+    def connection_success_count(self) -> int:
+        return self._connection_successes
+
+    @property
+    def connection_failure_count(self) -> int:
+        return self._connection_failures
+
+    @property
+    def connection_success_rate(self) -> float | None:
+        if self._connection_attempts == 0:
+            return None
+        return round(self._connection_successes / self._connection_attempts * 100.0, 2)
 
 
     async def close(self):
@@ -82,19 +104,51 @@ class GruenbeckMC:
         self.last_request = time.monotonic()
 
     async def _post(self, payload: str):
-        """Send POST request to /mux_http."""
+        """Send POST request to /mux_http with limited retries on server disconnect."""
         async with self._lock:
             await self._throttle()
 
             url = f"http://{self.host}/mux_http"
             headers = {"Content-Type": "application/x-www-form-urlencoded"}
+            max_retries = 2
+            retry_delay = 1.0
+            attempt = 0
 
-            async with self.session.post(url, data=payload, headers=headers) as resp:
-                text = await resp.text()
+            while True:
+                attempt += 1
+                self._connection_attempts += 1
                 try:
-                    return xmltodict.parse(text)
+                    async with self.session.post(url, data=payload, headers=headers) as resp:
+                        text = await resp.text()
+                        self._connection_successes += 1
+                        try:
+                            return xmltodict.parse(text)
+                        except Exception:
+                            return {"error": "invalid_xml", "raw": text}
+
+                except (ServerDisconnectedError, ClientConnectionError) as err:
+                    self._connection_failures += 1
+                    if attempt > max_retries:
+                        _LOGGER.warning(
+                            "_post: failed after %s attempts due to connection errors: %s",
+                            attempt,
+                            err,
+                        )
+                        raise
+
+                    _LOGGER.debug(
+                        "_post: connection error on attempt %s/%s (%s), retrying after %.1fs",
+                        attempt,
+                        max_retries,
+                        err,
+                        retry_delay,
+                    )
+                    await asyncio.sleep(retry_delay)
+                    continue
+
                 except Exception:
-                    return {"error": "invalid_xml", "raw": text}
+                    self._connection_failures += 1
+                    raise
 
     def _process_value(self, param: str, value: str):
         """Apply parameter_map transformations (dict mapping + base64 decoding)."""

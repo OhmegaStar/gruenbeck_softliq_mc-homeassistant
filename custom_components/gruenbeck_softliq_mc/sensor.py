@@ -5,7 +5,6 @@ from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorStateClass,
 )
-from homeassistant.const import UnitOfVolume
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -38,6 +37,8 @@ async def async_setup_entry(
                 )
             )
 
+    entities.append(GruenbeckConnectionSuccessRateSensor(client=client, entry_id=entry.entry_id))
+
     async_add_entities(entities)
 
 
@@ -59,6 +60,8 @@ class GruenbeckMCSensor(SensorEntity):
         # Device class
         if meta.get("device_class") == "water":
             self._attr_device_class = SensorDeviceClass.WATER
+        elif meta.get("device_class") == "timestamp":
+            self._attr_device_class = SensorDeviceClass.TIMESTAMP
 
         # State class
         if meta.get("state_class") == "measurement":
@@ -102,3 +105,25 @@ class GruenbeckMCSensor(SensorEntity):
 
         # Anything else: clear state so Home Assistant shows unavailable
         self._state = None
+
+
+class GruenbeckConnectionSuccessRateSensor(SensorEntity):
+    """Sensor for the connection success rate to the Grünbeck MC device."""
+
+    _attr_should_poll = True
+    _attr_native_unit_of_measurement = "%"
+   # _attr_device_class = SensorDeviceClass.PERCENT
+    _attr_state_class = SensorStateClass.MEASUREMENT
+
+    def __init__(self, client: GruenbeckMC, entry_id: str):
+        self._client = client
+        self._attr_unique_id = f"{entry_id}_connection_success_rate"
+        self._attr_name = "Grünbeck Connection Success Rate"
+        self._state = None
+
+    @property
+    def native_value(self):
+        return self._state
+
+    async def async_update(self) -> None:
+        self._state = self._client.connection_success_rate
