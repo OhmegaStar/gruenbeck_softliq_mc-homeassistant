@@ -1,4 +1,6 @@
 from __future__ import annotations
+from datetime import datetime
+import logging
 
 from homeassistant.components.sensor import (
     SensorEntity,
@@ -13,6 +15,7 @@ from .const import DOMAIN
 from .gruenbeck_mc import GruenbeckMC
 from .parameter_map import PARAMETERS
 
+_LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(
     hass: HomeAssistant,
@@ -79,11 +82,17 @@ class GruenbeckMCSensor(SensorEntity):
         """Fetch the latest value from the Grünbeck MC device."""
         code = self._meta.get("code")
         resp = await self._client.get_param(self._param, code=code)
+        _LOGGER.debug(
+            "%s = %r (%s)",
+            self._param,
+            resp,
+            type(resp),
+        )
         # `get_param` may return a scalar (int/float/str) when it can
         # directly return the processed value for the requested parameter.
         # It may also return a dict containing a `data` mapping or other
         # raw response shapes. Handle scalars first to avoid AttributeError.
-        if isinstance(resp, (int, float, str)):
+        if isinstance(resp, (int, float, str, datetime)):
             self._state = resp
             return
 

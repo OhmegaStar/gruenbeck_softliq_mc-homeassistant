@@ -4,7 +4,9 @@ import base64
 import re
 import logging
 import time
-from datetime import datetime
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
+#from homeassistant.util import dt as dt_util
 import xmltodict
 from aiohttp import ClientSession, ClientTimeout, ServerDisconnectedError, ClientConnectionError
 
@@ -209,9 +211,17 @@ class GruenbeckMC:
         ):
             try:
                 value = re.sub(r"\s*Uhr\s*$", "", value, flags=re.IGNORECASE).strip()
-                dt = datetime.strptime(value, "%d.%m.%Y %H:%M")
-                value = dt.isoformat()
+                try:
+                    dt = datetime.strptime(value, "%d.%m.%Y %H:%M")
+                except ValueError:
+                    dt = datetime.fromisoformat(value)
+
+                if dt.tzinfo is None:
+                    dt = dt.replace(tzinfo=timezone.utc)
+
+                value = dt
             except Exception:
+                _LOGGER.exception("_process_value: Failed to parse timestamp %s value=%r", param, value)
                 # Non-fatal: leave original value on any unexpected error
                 pass
 
@@ -272,6 +282,12 @@ class GruenbeckMC:
             processed = {}
             for p, v in data["data"].items():
                 processed[p] = self._process_value(p, v)
+                _LOGGER.debug(
+                    "%s = %r (%s)",
+                    p,
+                    processed[p],
+                    type(processed[p]),
+                )
             return processed
 
         processed = {}
