@@ -72,7 +72,7 @@ PARAMETERS = {
     "D_A_1_2": {"name": "Tank 1 Residual Capacity", "unit": "m³", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
     "D_Y_10_1": {"name": "Tank 1 Capacity Remanining %", "unit": "%", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
     "D_A_2_1": {"name": "Tank 1 Remanining Duration ro Residual Quantity Current Step", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
-    "D_A_3_1": {"name": "Tank 1 Time of Last Regeneration", "unit": "date-time", "type": "string", "dict": None, "access": "r", "base64": False, "code": None},
+    "D_A_3_1": {"name": "Tank 1 Time of Last Regeneration", "unit": None, "type": None, "dict": None, "access": "r", "base64": False, "code": None, "device_class": "timestamp", "state_class": None},
 
     #Tank 2
     "D_A_1_4": {"name": "Tank 2 Current Flow", "unit": "m³/h", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
@@ -80,7 +80,7 @@ PARAMETERS = {
     "D_A_1_5": {"name": "Tank 2 Residual Capacity", "unit": "m³", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
     "D_Y_10_2": {"name": "Tank 2 Capacity Remanining %", "unit": "%", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
     "D_A_2_4": {"name": "Tank 2 Remanining Duration ro Residual Quantity Current Step", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
-    "D_A_3_4": {"name": "Tank 2 Time of Last Regeneration", "unit": "date-time", "type": "string", "dict": None, "access": "r", "base64": False, "code": None},
+    "D_A_3_4": {"name": "Tank 2 Time of Last Regeneration", "unit": None, "type": None, "dict": None, "access": "r", "base64": False, "code": None, "device_class": "timestamp", "state_class": None},
     #{'data': {'code': 'ok', 'D_A_1_1': '0.00', 'D_A_1_3': '6.87', 'D_A_1_2': '0.26', 'D_Y_10_1': '61', 'D_A_2_1': '0.0l', 'D_A_3_1': '18.02.2026 09:02Uhr', 'D_A_1_4': '0.00', 'D_A_1_8': '6.87', 'D_A_1_5': '0.28', 'D_Y_10_2': '65', 'D_A_2_4': '0.0l', 'D_A_3_4': '18.02.2026 09:25Uhr'}}
 
     # ---------------------------------------------------------
@@ -144,7 +144,7 @@ PARAMETERS = {
  #   "D_C_4_3": {"name": "Daily Generation Time 1", "unit": "time", "type": "string", "dict": None, "access": "rw", "base64": False, "code": None},
  #   "D_C_4_4": {"name": "Daily Generation Time 2", "unit": "time", "type": "string", "dict": None, "access": "rw", "base64": False, "code": None},
  #   "D_C_4_5": {"name": "Daily Generation Time 3", "unit": "time", "type": "string", "dict": None, "access": "rw", "base64": False, "code": None},
-    "D_Y_14": {"name": "Estimated Time of Next Regeneration", "unit": "date-time", "type": "string", "dict": None, "access": "r", "base64": False, "code": None},
+    "D_Y_14": {"name": "Estimated Time of Next Regeneration", "unit": None, "type": None, "dict": None, "access": "r", "base64": False, "code": None, "device_class": "timestamp", "state_class": None},
  #   "D_C_5_1": {"name": "Function", "unit": None, "type": "String", "dict": {"0": "Eco Mode", "1": "Power Mode", "2": "Comfort Mode", "3": "Individual"}, "access": "rw", "base64": False, "code": None},
  #   "D_C_6_3": {"name": "Timer Function - Monday", "unit": None, "type": "String", "dict": {"0": "Eco Mode", "1": "Power Mode", "2": "Comfort Mode"}, "access": "rw", "base64": False, "code": None},
  #   "D_C_6_4": {"name": "Timer Function - Tuesday", "unit": None, "type": "String", "dict": {"0": "Eco Mode", "1": "Power Mode", "2": "Comfort Mode"}, "access": "rw", "base64": False, "code": None},
@@ -177,7 +177,7 @@ PARAMETERS = {
  #   "D_Y_8_10": {"name": "SMTP Server", "unit": None, "type": "string", "dict": None, "access": "rw", "base64": True, "code": None},
  #   "D_Y_8_11": {"name": "SMTP Server Port", "unit": None, "type": "number", "dict": None, "access": "rw", "base64": False, "code": None},
  #   "D_Y_12": {"name": "SMTP Password", "unit": None, "type": "secret", "dict": None, "access": "rw", "base64": True, "code": None},
-    "D_Y_8_12": {"name": "Last Testmail Sent", "unit": "date-time", "type": "string", "dict": None, "access": "rw", "base64": False, "code": None},
+    "D_Y_8_12": {"name": "Last Testmail Sent", "unit": None, "type": None, "dict": None, "access": "rw", "base64": False, "code": None, "device_class": "timestamp", "state_class": None},
     #Theres something wrong in this screen, there should be smtp username, sender email, phone number, surname, test email send button test email status transmission, time of last test send and a network reset param
     #{'data': {'code': 'ok', 'D_C_3_7_1': '192.168.0.1/24', 'D_C_3_7_2': 'softliQ:MC_cfddc7', 'D_C_3_7_3': '1', 'D_C_3_1': '1', 'D_Y_8_1_1': 'aGVucmlrQG9obWVyaWtzZW4uZGs=', 'D_Y_8_1_2': '-', 'D_Y_8_1_3': '-', 'D_Y_8_2': 'cmF6b3Iub2htZWdhc3Rhci5kaw==', 'D_Y_8_5': 'KioqKioqKioqKio=', 'D_Y_8_6': 'c29mdGxpcUBvaG1lZ2FzdGFyLmRr', 'D_Y_8_7': '-', 'D_Y_8_8': '-', 'D_Y_8_10': '0', 'D_Y_8_11': '0', 'D_Y_8_12': '01.01.2018 00:00', 'D_Y_12': '0'}}
 
@@ -250,7 +250,7 @@ PARAMETERS = {
     # ---------------------------------------------------------
     # Control Parameters: code 142
     # ---------------------------------------------------------
-    # id=943&code=XXX&show=D_H_2|D_H_3|D_H_4|D_H_5|D_H_6|D_H_7|D_H_8|D_H_9|D_H_11|D_H_12|D_H_13|D_H_15~
+    # id=943&code=142&show=D_H_2|D_H_3|D_H_4|D_H_5|D_H_6|D_H_7|D_H_8|D_H_9|D_H_11|D_H_12|D_H_13|D_H_15~
  #   "D_H_2": {"name": "Power Failure Reaction", "unit": None, "type": "String", "dict": {"0": "No reaction", "2": "Message text+fault alarm contact", "3": "Message text+fault alarm contact+regeneration"}, "access": "rw", "base64": False, "code": "142"},
  #   "D_H_3": {"name": "System Overload Reaction", "unit": None, "type": "String", "dict": {"0": "No reaction", "2": "Message text+fault alarm contact"}, "access": "rw", "base64": False, "code": "142"},
  #   "D_H_4": {"name": "Disinfection Monitoring", "unit": None, "type": "string", "dict": {"0": "Deactivated", "1": "Activated"}, "access": "rw", "base64": False, "code": "142"},
@@ -311,7 +311,7 @@ PARAMETERS = {
     #id=943&code=005&show=D_K_10_1|D_K_10_2|D_K_10_3|D_K_10_4|D_K_10_5|D_K_10_6|D_K_10_7|D_K_10_8|D_K_10_9|D_K_10_10|D_K_10_11|D_K_10_12|D_K_10_13|D_K_10_14|D_K_10_15|D_K_10_16|D_K_13|D_B_2|D_K_11_1|D_K_11_2|D_K_11_3|D_K_11_4|D_K_11_5|D_K_11_6|D_K_11_7|D_K_11_8|D_K_11_9|D_K_11_10|D_K_11_11|D_K_11_12|D_K_11_13|D_K_11_14|D_K_11_15|D_K_11_16~
     "D_K_10_1": {"name": "Error Memory 1 (Last Error)", "unit": None, "type": "string", "dict": None, "access": "r", "base64": False, "code": "005"},
     #There are 16 Memories for Error D_K_10_1..D_K_10_16
-    "D_K_13": {"name": "Error Memory Deleted On", "unit": "date-time", "type": "string", "dict": None, "access": "r", "base64": False, "code": "005"},
+    "D_K_13": {"name": "Error Memory Deleted On", "unit": None, "type": None, "dict": None, "access": "r", "base64": False, "code": "005", "device_class": "timestamp", "state_class": None},
  #   "D_B_2": {"name": "Reset Pending Error", "unit": None, "type": "string", "dict": {"0": "No", "1": "Yes"}, "access": "rw", "base64": False, "code": "005"},
     "D_K_11_1": {"name": "Last Change", "unit": None, "type": "string", "dict": None, "access": "r", "base64": False, "code": "005"},
     #There are 16 Memories for Changes D_K_11_1..D_K_11_16

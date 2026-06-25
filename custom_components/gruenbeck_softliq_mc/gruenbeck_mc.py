@@ -4,6 +4,7 @@ import base64
 import re
 import logging
 import time
+import datetime
 import xmltodict
 from aiohttp import ClientSession, ClientTimeout, ServerDisconnectedError
 
@@ -143,18 +144,24 @@ class GruenbeckMC:
                     _LOGGER.debug("_process_value: no numeric substring found for %s value=%r", param, value)
                     return value
 
-        return value
-
         # Date/time cleanup: strip German 'Uhr' suffix from datetime strings
-        # when the parameter unit indicates a date or time value.
+        # when the parameter unit indicates a date or time value or when the
+        # parameter is a timestamp device class.
         unit = meta.get("unit")
-        if isinstance(unit, str) and ("date" in unit.lower() or "time" in unit.lower()):
-            if isinstance(value, str):
-                try:
-                    value = re.sub(r"\s*Uhr\s*$", "", value, flags=re.IGNORECASE).strip()
-                except Exception:
-                    # Non-fatal: leave original value on any unexpected error
-                    pass
+        device_class = meta.get("device_class")
+        if isinstance(value, str) and (
+            (isinstance(unit, str) and ("date" in unit.lower() or "time" in unit.lower()))
+            or (isinstance(device_class, str) and device_class.lower() == "timestamp")
+        ):
+            try:
+                value = re.sub(r"\s*Uhr\s*$", "", value, flags=re.IGNORECASE).strip()
+                dt = datetime.strptime(value, "%d.%m.%Y %H:%M")
+                value = dt.isoformat()
+            except Exception:
+                # Non-fatal: leave original value on any unexpected error
+                pass
+
+        return value
 
     # ---------------------------------------------------------
     # PUBLIC API
