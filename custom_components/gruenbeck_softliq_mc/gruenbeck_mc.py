@@ -38,7 +38,7 @@ class GruenbeckMC:
         await client._init()
         return client
 
-    def __init__(self, host: str, session: ClientSession | None = None, request_interval_ms: int = 20):
+    def __init__(self, host: str, session: ClientSession | None = None, request_interval_ms: int = 15):
         # Accept a None session for standalone usage; create our own in that case
         self.host = host
         if session is None:
@@ -113,7 +113,7 @@ class GruenbeckMC:
             url = f"http://{self.host}/mux_http"
             headers = {"Content-Type": "application/x-www-form-urlencoded"}
             max_retries = 2
-            retry_delay = 1.0
+            retry_delay = 0.250
             attempt = 0
 
             while True:
