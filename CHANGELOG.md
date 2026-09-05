@@ -22,6 +22,32 @@ og versionering følger **Semantic Versioning**.
  tools/release.ps1                               |  36 +++++++-
  6 files changed, 162 insertions(+), 12 deletions(-)
 ```
+## [0.1.4] - 2026-09-05
+### Changed
+- tools cleanup, and enable test clients in tools to run in uv (3c61409)
+- tooling fix - workflow updated to current github actions (d37d15c)
+
+### Files changed
+```text
+ .github/workflows/release.yml                      |   4 +-
+ .gitignore                                         |   1 +
+ .../gruenbeck_softliq_mc/coordinator.py            |  11 +-
+ pyproject.toml                                     |  12 +
+ tools/device_probe.py                              | 130 +++++
+ tools/gruenbeck_client.py                          |  43 --
+ tools/gruenbeck_mc.py                              |  95 ----
+ tools/mc32_dict_scanner.py                         | 323 ------------
+ tools/mc32_full_param_scanner.py                   |  85 ----
+ tools/mc32_param_scanner.py                        |  76 ---
+ tools/mc32_test_client.py                          |  74 ---
+ tools/smoke_test_api_modes.py                      |  34 ++
+ tools/smoke_test_client.py                         |  35 ++
+ tools/softliq_params.txt                           |   0
+ tools/test_api_modes.py                            |  48 --
+ tools/test_client.py                               | 115 -----
+ uv.lock                                            | 540 +++++++++++++++++++++
+ 17 files changed, 759 insertions(+), 867 deletions(-)
+```
 ## [Unreleased]
 ### Added
 - Intet endnu.
@@ -62,5 +88,6 @@ og versionering følger **Semantic Versioning**.
 - Parameter‑mapping og test scripts.
 
 ---
+
 
 
