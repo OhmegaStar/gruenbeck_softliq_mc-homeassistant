@@ -5,8 +5,6 @@ import re
 import logging
 import time
 from datetime import datetime, timezone
-from zoneinfo import ZoneInfo
-#from homeassistant.util import dt as dt_util
 import xmltodict
 from aiohttp import ClientSession, ClientTimeout, ServerDisconnectedError, ClientConnectionError
 
@@ -243,7 +241,6 @@ class GruenbeckMC:
         else:
             payload = f"id=1234&show={param}~"
 
-        #return await self._post(payload)
         data = await self._post(payload)
 
         # If the lower-level _post returned a {'data': {param: value, ...}}
@@ -274,7 +271,6 @@ class GruenbeckMC:
         else:
             payload = f"id=1234&show={show}~"
 
-        #return await self._post(payload)
         data = await self._post(payload)
 
         # If we get {'data': {param: value, ...}} use that and process values
