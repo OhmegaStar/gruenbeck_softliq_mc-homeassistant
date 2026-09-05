@@ -42,12 +42,11 @@ class GruenbeckCoordinator(DataUpdateCoordinator):
             code_290_resp = await self.client.get_params(self.code_290_params, code="290")
 
             data = {}
-            if "data" in normal_resp:
-                data.update(normal_resp["data"])
-            if "data" in code_005_resp:
-                data.update(code_005_resp["data"])
-            if "data" in code_290_resp:
-                data.update(code_290_resp["data"])
+            for response in (normal_resp, code_005_resp, code_290_resp):
+                if isinstance(response, dict) and "data" in response:
+                    response = response["data"]
+                if isinstance(response, dict):
+                    data.update(response)
 
             return data
 
