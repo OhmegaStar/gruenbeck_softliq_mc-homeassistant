@@ -48,6 +48,21 @@ og versionering følger **Semantic Versioning**.
  uv.lock                                            | 540 +++++++++++++++++++++
  17 files changed, 759 insertions(+), 867 deletions(-)
 ```
+## [0.1.5] - 2026-09-05
+### Changed
+- fix that each sensor was self poling, causing overload of requests to the device, and queue / lock contention on the request interface, should remove the may errors in the log from many polling sensors (2a01b3f)
+- move lbrand resources to correct folder (9e11d38)
+
+### Files changed
+```text
+ .../gruenbeck_softliq_mc/{ => brand}/icon.png      | Bin
+ .../gruenbeck_softliq_mc/{ => brand}/logo.png      | Bin
+ custom_components/gruenbeck_softliq_mc/const.py    |   2 -
+ .../gruenbeck_softliq_mc/gruenbeck_mc.py           |   4 -
+ custom_components/gruenbeck_softliq_mc/sensor.py   |  85 ++++++---------------
+ custom_components/gruenbeck_softliq_mc/switch.py   |  50 ++++--------
+ 6 files changed, 37 insertions(+), 104 deletions(-)
+```
 ## [Unreleased]
 ### Added
 - Intet endnu.
@@ -88,6 +103,7 @@ og versionering følger **Semantic Versioning**.
 - Parameter‑mapping og test scripts.
 
 ---
+
 
 
 
