@@ -1,7 +1,7 @@
 {
   "domain": "gruenbeck_softliq_mc",
   "name": "Grünbeck softliQ MC",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "documentation": "https://github.com/ohmegastar/gruenbeck_softliq_mc-homeassistant",
   "requirements": [
     "aiohttp>=3.9.0",
@@ -12,5 +12,7 @@
   ],
   "config_flow": true,
   "iot_class": "local_polling",
-  "loggers": ["custom_components.gruenbeck_softliq_mc"]
+  "loggers": [
+    "custom_components.gruenbeck_softliq_mc"
+  ]
 }
