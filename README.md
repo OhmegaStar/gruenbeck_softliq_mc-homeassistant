@@ -59,7 +59,7 @@ No cloud. No external dependencies.
 
 Enter:
 - Device IP
-- Scan interval (default: 30s)
+- Scan interval (default: 90s)
 
 The integration will automatically:
 - Discover all readable parameters
