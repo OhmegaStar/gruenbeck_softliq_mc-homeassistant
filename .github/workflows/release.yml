@@ -1,41 +1,36 @@
 name: Release
 
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: "New version number (e.g. 0.1.1)"
-        required: true
+  push:
+    tags:
+      - "v*.*.*"
 
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set version
+      - name: Validate version
         run: |
-          VERSION="${{ github.event.inputs.version }}"
-          echo "Updating manifest.json to version $VERSION"
-          jq ".version = \"$VERSION\"" custom_components/gruenbeck_softliq_mc/manifest.json > manifest.tmp
-          mv manifest.tmp custom_components/gruenbeck_softliq_mc/manifest.json
-
-      - name: Commit version bump
-        run: |
-          VERSION="${{ github.event.inputs.version }}"
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add custom_components/gruenbeck_softliq_mc/manifest.json
-          git commit -m "Bump version to $VERSION"
-          git tag "v$VERSION"
-          git push
-          git push --tags
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          MANIFEST_VERSION=$(jq -r '.version' custom_components/gruenbeck_softliq_mc/manifest.json)
+          if [[ ! "$TAG_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Invalid release tag: $GITHUB_REF_NAME"
+            exit 1
+          fi
+          if [[ "$TAG_VERSION" != "$MANIFEST_VERSION" ]]; then
+            echo "Tag version $TAG_VERSION does not match manifest version $MANIFEST_VERSION"
+            exit 1
+          fi
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: "v${{ github.event.inputs.version }}"
-          name: "v${{ github.event.inputs.version }}"
+          tag_name: "${{ github.ref_name }}"
+          name: "${{ github.ref_name }}"
           generate_release_notes: true

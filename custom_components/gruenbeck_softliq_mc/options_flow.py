@@ -73,7 +73,7 @@ class GruenbeckOptionsFlowHandler(config_entries.OptionsFlow):
                 vol.Required(
                     CONF_SCAN_INTERVAL,
                     default=current.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL),
-                ): int,
+                ): vol.All(vol.Coerce(int), vol.Range(min=1)),
             }
         )
 

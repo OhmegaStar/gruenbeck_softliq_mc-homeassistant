@@ -67,6 +67,19 @@ The integration will automatically:
 - Create switches
 - Handle code=005 protected parameters
 
+## Releases
+
+The Home Assistant version is stored in `custom_components/gruenbeck_softliq_mc/manifest.json`.
+Create a release from Windows PowerShell with:
+
+```powershell
+.\tools\release.ps1 -Version 0.1.2 -Push
+```
+
+The script updates the manifest, creates a `v0.1.2` Git tag, and optionally pushes both
+the commit and tag. GitHub Actions verifies that the tag matches the manifest version
+and then creates the GitHub release.
+
 ---
 
 ## Credits
