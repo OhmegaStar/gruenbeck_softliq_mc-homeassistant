@@ -25,7 +25,7 @@ class GruenbeckCoordinator(DataUpdateCoordinator):
         self.client = client
 
         # Split parameters into normal and code=005
-        self.normal_params = [p for p, m in PARAMETERS.items() if "code" not in m]
+        self.normal_params = [p for p, m in PARAMETERS.items() if m.get("code") is None]
         self.code_005_params = [p for p, m in PARAMETERS.items() if m.get("code") == "005"]
         self.code_290_params = [p for p, m in PARAMETERS.items() if m.get("code") == "290"]
 

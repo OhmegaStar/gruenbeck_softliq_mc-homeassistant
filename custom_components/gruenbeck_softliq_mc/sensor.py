@@ -82,7 +82,8 @@ class GruenbeckMCSensor(CoordinatorEntity, SensorEntity):
 
     @property
     def native_value(self):
-        return self.coordinator.data.get(self._param)
+        data = self.coordinator.data or {}
+        return data.get(self._param)
 
 
 class GruenbeckConnectionSuccessRateSensor(CoordinatorEntity, SensorEntity):
