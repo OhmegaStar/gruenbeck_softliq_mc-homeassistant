@@ -6,6 +6,22 @@ og versionering følger **Semantic Versioning**.
 
 ---
 
+## [0.1.3] - 2026-09-05
+### Changed
+- fix for missing icon and branding (ab1eabc)
+- default scan interval is 90 seconds (c073d94)
+- tooling - Release workflow automation (3a593e7)
+
+### Files changed
+```text
+ .github/workflows/release.yml                   |  16 ++++
+ README.md                                       |  14 +--
+ custom_components/gruenbeck_softliq_mc/icon.png | Bin 2139956 -> 254614 bytes
+ custom_components/gruenbeck_softliq_mc/logo.png | Bin 254614 -> 2139956 bytes
+ docs/RELEASING.md                               | 108 ++++++++++++++++++++++++
+ tools/release.ps1                               |  36 +++++++-
+ 6 files changed, 162 insertions(+), 12 deletions(-)
+```
 ## [Unreleased]
 ### Added
 - Intet endnu.
@@ -46,4 +62,5 @@ og versionering følger **Semantic Versioning**.
 - Parameter‑mapping og test scripts.
 
 ---
+
 
