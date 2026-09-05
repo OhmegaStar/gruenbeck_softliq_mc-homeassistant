@@ -63,6 +63,19 @@ og versionering følger **Semantic Versioning**.
  custom_components/gruenbeck_softliq_mc/switch.py   |  50 ++++--------
  6 files changed, 37 insertions(+), 104 deletions(-)
 ```
+## [0.1.6] - 2026-09-05
+### Changed
+- fixed logo and image sizes according to sizing requirements (3a447e7)
+- fix that the coordinator did not poll and return the data to the sensors (bd4da95)
+
+### Files changed
+```text
+ .../gruenbeck_softliq_mc/brand/icon.png            | Bin 254614 -> 32154 bytes
+ .../gruenbeck_softliq_mc/brand/logo.png            | Bin 2139956 -> 17159 bytes
+ .../gruenbeck_softliq_mc/coordinator.py            |   2 +-
+ custom_components/gruenbeck_softliq_mc/sensor.py   |   3 ++-
+ 4 files changed, 3 insertions(+), 2 deletions(-)
+```
 ## [Unreleased]
 ### Added
 - Intet endnu.
@@ -103,6 +116,7 @@ og versionering følger **Semantic Versioning**.
 - Parameter‑mapping og test scripts.
 
 ---
+
 
 
 
