@@ -76,6 +76,17 @@ og versionering følger **Semantic Versioning**.
  custom_components/gruenbeck_softliq_mc/sensor.py   |   3 ++-
  4 files changed, 3 insertions(+), 2 deletions(-)
 ```
+## [0.1.7] - 2026-09-06
+### Changed
+- removed number of sensors that do not make sense in home assistant, added a few new ones that may make sense. handle code param grouping more elegantly, fix for tooling - probe code not working with code params. (66d8601)
+
+### Files changed
+```text
+ .../gruenbeck_softliq_mc/coordinator.py            | 21 +++------
+ .../gruenbeck_softliq_mc/parameter_map.py          | 55 +++++++++++-----------
+ tools/device_probe.py                              | 54 ++++++++++++++++-----
+ 3 files changed, 77 insertions(+), 53 deletions(-)
+```
 ## [Unreleased]
 ### Added
 - Intet endnu.
@@ -116,6 +127,7 @@ og versionering følger **Semantic Versioning**.
 - Parameter‑mapping og test scripts.
 
 ---
+
 
 
 
