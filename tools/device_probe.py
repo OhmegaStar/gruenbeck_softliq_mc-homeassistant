@@ -14,11 +14,27 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import importlib.util
 import time
 from collections.abc import Iterable
+from pathlib import Path
 
 import aiohttp
 import xmltodict
+
+
+_PARAMETER_MAP_PATH = (
+    Path(__file__).resolve().parents[1]
+    / "custom_components"
+    / "gruenbeck_softliq_mc"
+    / "parameter_map.py"
+)
+_PARAMETER_MAP_SPEC = importlib.util.spec_from_file_location("parameter_map", _PARAMETER_MAP_PATH)
+if _PARAMETER_MAP_SPEC is None or _PARAMETER_MAP_SPEC.loader is None:
+    raise ImportError(f"Unable to load parameter map from {_PARAMETER_MAP_PATH}")
+_PARAMETER_MAP_MODULE = importlib.util.module_from_spec(_PARAMETER_MAP_SPEC)
+_PARAMETER_MAP_SPEC.loader.exec_module(_PARAMETER_MAP_MODULE)
+PARAMETERS = _PARAMETER_MAP_MODULE.PARAMETERS
 
 
 DEFAULT_SETS = {
@@ -34,27 +50,33 @@ def generate_scan_params() -> list[str]:
         "D_A": ((1, 1, 20), (2, 1, 20), (3, 1, 20)),
         "D_D": ((1, 1, 20),),
         "D_C": ((1, 1, 20),),
+        "D_K": ((8, 1, 7), (9, 1, 7)),
         "D_Y": ((1, 1, 20),),
         "P_A": ((1, 1, 20),),
         "P_C": ((1, 1, 20),),
         "P_D": ((1, 1, 20),),
         "P_Y": ((1, 1, 20),),
     }
-    return [
+    generated = [
         f"{prefix}_{group}_{index}"
         for prefix, ranges in groups.items()
         for group, start, end in ranges
         for index in range(start, end + 1)
     ]
+    return generated + ["D_K_5", "D_K_6", "D_K_7"]
 
 
 async def fetch_show(
     session: aiohttp.ClientSession,
     host: str,
     params: Iterable[str],
+    code: str | None = None,
 ) -> tuple[int | None, str, float | None]:
     show = "|".join(params) + "~"
-    payload = {"id": "1234", "show": show}
+    payload = {"id": "1234"}
+    if code is not None:
+        payload["code"] = code
+    payload["show"] = show
     start = time.perf_counter()
     try:
         async with session.post(
@@ -74,15 +96,22 @@ async def probe_set(
     name: str,
     params: Iterable[str],
 ) -> None:
-    status, text, elapsed = await fetch_show(session, host, params)
-    print(f"\n=== {name} ===")
-    print(f"HTTP status: {status}; elapsed: {elapsed:.3f}s" if elapsed else text)
-    if status is None or not text.strip():
-        return
-    try:
-        print(xmltodict.parse(text))
-    except Exception as err:
-        print(f"XML parse error: {err}\n{text}")
+    sections: dict[str | None, list[str]] = {}
+    for param in params:
+        code = PARAMETERS.get(param, {}).get("code")
+        sections.setdefault(code, []).append(param)
+
+    for code, section_params in sections.items():
+        status, text, elapsed = await fetch_show(session, host, section_params, code)
+        section_name = f"{name} (code {code})" if code else name
+        print(f"\n=== {section_name} ===")
+        print(f"HTTP status: {status}; elapsed: {elapsed:.3f}s" if elapsed else text)
+        if status is None or not text.strip():
+            continue
+        try:
+            print(xmltodict.parse(text))
+        except Exception as err:
+            print(f"XML parse error: {err}\n{text}")
 
 
 async def scan_params(
@@ -93,7 +122,8 @@ async def scan_params(
     supported: dict[str, object] = {}
     unsupported: dict[str, str] = {}
     for param in params:
-        status, text, _ = await fetch_show(session, host, (param,))
+        code = PARAMETERS.get(param, {}).get("code")
+        status, text, _ = await fetch_show(session, host, (param,), code)
         try:
             if status is None:
                 raise RuntimeError(text)

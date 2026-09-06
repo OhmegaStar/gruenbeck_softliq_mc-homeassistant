@@ -124,23 +124,23 @@ PARAMETERS = {
  #   "D_C_5_2": {"name": "Unit Date", "unit": "date", "type": "string", "dict": None, "access": "rw", "base64": False, "code": None},
  #   "D_C_5_3": {"name": "Automatic Switching Daylight Saving", "unit": None, "type": "String", "dict": {"0": "No", "1": "Yes"}, "access": "rw", "base64": False, "code": None},
  #   "D_C_6_1": {"name": "Display In Standby Active", "unit": None, "type": "string", "dict": {"0": "No", "1": "Yes"}, "access": "rw", "base64": False, "code": None},
- #   "D_C_8_1": {"name": "Illuminated Ring Function", "unit": None, "type": "String", "dict": {"0": "deactivated", "1": "in case of fault", "2": "in case of operation, fault", "3": "in case of water treatment, operation, fault", "4": "constantly illuminated"}, "access": "rw", "base64": False, "code": None},
- #   "D_C_8_2": {"name": "Ring Light Flash on Salt Advance Warning", "unit": None, "type": "String", "dict": {"0": "No", "1": "Yes"}, "access": "rw", "base64": False, "code": None},
- #   "D_D_1": {"name": "Raw water hardness", "unit": "°dH", "type": "number", "dict": None, "access": "rw", "base64": False, "code": None},
- #   "D_D_2": {"name": "Target Soft water hardness", "unit": "°dH", "type": "number", "dict": None, "access": "rw", "base64": False, "code": None},
+    "D_C_8_1": {"name": "Illuminated Ring Function", "unit": None, "type": "String", "dict": {"0": "deactivated", "1": "in case of fault", "2": "in case of operation, fault", "3": "in case of water treatment, operation, fault", "4": "constantly illuminated"}, "access": "rw", "base64": False, "code": None},
+    "D_C_8_2": {"name": "Ring Light Flash on Salt Advance Warning", "unit": None, "type": "String", "dict": {"0": "No", "1": "Yes"}, "access": "rw", "base64": False, "code": None},
+    "D_D_1": {"name": "Raw water hardness", "unit": "°dH", "type": "number", "dict": None, "access": "rw", "base64": False, "code": None},
+    "D_D_2": {"name": "Target Soft water hardness", "unit": "°dH", "type": "number", "dict": None, "access": "rw", "base64": False, "code": None},
  #   "D_E_1": {"name": "Begin Startup Process", "unit": None, "type": "String", "dict": {"0": "No", "1": "Yes"}, "access": "rw", "base64": False, "code": None},
  #   "D_Y_9": {"name": "Startup Current Index Comission Program", "unit": None, "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
  #   "D_Y_9_8": {"name": "Startup Countdown Time Venting Program", "unit": "hours", "type": "string", "dict": None, "access": "r", "base64": False, "code": None},
  #   "D_Y_9_24": {"name": "Startup Remaining Duration of Test Generation", "unit": "hours", "type": "string", "dict": None, "access": "r", "base64": False, "code": None},
  #   "D_C_7_1": {"name": "Set Service Interval", "unit": "dayn", "type": "number", "dict": None, "access": "rw", "base64": False, "code": None},
- #   "D_Y_15": {"name": "Hardware ID", "unit": None, "type": "string", "dict": None, "access": "r", "base64": False, "code": None},
+    "D_Y_15": {"name": "Hardware ID", "unit": None, "type": "string", "dict": None, "access": "r", "base64": False, "code": None},
     #{'data': {'code': 'ok', 'D_C_1_1': '1', 'D_C_4_2': '19:14', 'D_C_5_2': '18.02.2026', 'D_C_5_3': '1', 'D_C_6_1': '0', 'D_C_8_1': '3', 'D_C_8_2': '0', 'D_D_1': '16.0', 'D_D_2': '4.0', 'D_E_1': '0', 'D_Y_9': '24', 'D_Y_9_8': '00:00', 'D_Y_9_24': '00:00', 'D_C_7_1': '368', 'D_Y_15': '0xaaaaaaaa'}}
 
     # ---------------------------------------------------------
     # Regeneration:
     # ---------------------------------------------------------
     #id=943&show=D_C_4_1|D_C_4_3|D_C_4_4|D_C_4_5|D_Y_14|D_C_5_1|D_C_6_3|D_C_6_4|D_C_6_5|D_C_6_6|D_C_6_7|D_C_6_8|D_C_6_9~
- #   "D_C_4_1": {"name": "Regeneration Time", "unit": None, "type": "String", "dict": {"0": "Automatic", "1": "Fixed", "2": "Weekly Timer"}, "access": "rw", "base64": False, "code": None},
+    "D_C_4_1": {"name": "Regeneration Time", "unit": None, "type": "String", "dict": {"0": "Automatic", "1": "Fixed", "2": "Weekly Timer"}, "access": "rw", "base64": False, "code": None},
  #   "D_C_4_3": {"name": "Daily Generation Time 1", "unit": "time", "type": "string", "dict": None, "access": "rw", "base64": False, "code": None},
  #   "D_C_4_4": {"name": "Daily Generation Time 2", "unit": "time", "type": "string", "dict": None, "access": "rw", "base64": False, "code": None},
  #   "D_C_4_5": {"name": "Daily Generation Time 3", "unit": "time", "type": "string", "dict": None, "access": "rw", "base64": False, "code": None},
@@ -244,25 +244,25 @@ PARAMETERS = {
  #   "D_G_2": {"name": "Voltage-free Contact Function Mode", "unit": None, "type": "string", "dict": {"0": "N.C", "1": "N.O"}, "access": "rw", "base64": False, "code": "005"},
  #   "D_G_3": {"name": "Function Programmable Input", "unit": None, "type": "string", "dict": {"0": "Reg. Release", "1": "Reg. Lock", "2": "Forwarding of fault messages"}, "access": "rw", "base64": False, "code": "005"},
  #   "D_Y_8_9": {"name": "Text for Email Forrading of Fault Message", "unit": None, "type": "String", "dict": None, "access": "rw", "base64": True, "code": "005"},
- #   "D_G_4": {"name": "Modbus Connection", "unit": None, "type": "string", "dict": {"0": "Deactivated", "1": "Activated"}, "access": "rw", "base64": False, "code": "005"},
+    "D_G_4": {"name": "Modbus Connection", "unit": None, "type": "string", "dict": {"0": "Deactivated", "1": "Activated"}, "access": "rw", "base64": False, "code": "005"},
     #{'data': {'code': 'ok', 'D_G_1': '1', 'D_G_2': '0', 'D_G_3': '0', 'D_Y_8_9': '-', 'D_G_4': '0'}}
 
     # ---------------------------------------------------------
     # Control Parameters: code 142
     # ---------------------------------------------------------
     # id=943&code=142&show=D_H_2|D_H_3|D_H_4|D_H_5|D_H_6|D_H_7|D_H_8|D_H_9|D_H_11|D_H_12|D_H_13|D_H_15~
- #   "D_H_2": {"name": "Power Failure Reaction", "unit": None, "type": "String", "dict": {"0": "No reaction", "2": "Message text+fault alarm contact", "3": "Message text+fault alarm contact+regeneration"}, "access": "rw", "base64": False, "code": "142"},
- #   "D_H_3": {"name": "System Overload Reaction", "unit": None, "type": "String", "dict": {"0": "No reaction", "2": "Message text+fault alarm contact"}, "access": "rw", "base64": False, "code": "142"},
- #   "D_H_4": {"name": "Disinfection Monitoring", "unit": None, "type": "string", "dict": {"0": "Deactivated", "1": "Activated"}, "access": "rw", "base64": False, "code": "142"},
- #   "D_H_5": {"name": "Chlorine Cell", "unit": None, "type": "string", "dict": {"0": "Deactivated", "1": "Activated"}, "access": "rw", "base64": False, "code": "142"},
+    "D_H_2": {"name": "Power Failure Reaction", "unit": None, "type": "String", "dict": {"0": "No reaction", "2": "Message text+fault alarm contact", "3": "Message text+fault alarm contact+regeneration"}, "access": "rw", "base64": False, "code": "142"},
+    "D_H_3": {"name": "System Overload Reaction", "unit": None, "type": "String", "dict": {"0": "No reaction", "2": "Message text+fault alarm contact"}, "access": "rw", "base64": False, "code": "142"},
+    "D_H_4": {"name": "Disinfection Monitoring", "unit": None, "type": "string", "dict": {"0": "Deactivated", "1": "Activated"}, "access": "rw", "base64": False, "code": "142"},
+    "D_H_5": {"name": "Chlorine Cell", "unit": None, "type": "string", "dict": {"0": "Deactivated", "1": "Activated"}, "access": "rw", "base64": False, "code": "142"},
  #   "D_H_6": {"name": "Regeneration Water Meter Monitoring Time", "unit": "Min", "type": "number", "dict": None, "access": "rw", "base64": False, "code": "142"},
  #   "D_H_7": {"name": "Salting Monitoring Time", "unit": "Min", "type": "number", "dict": None, "access": "rw", "base64": False, "code": "142"},
  #   "D_H_8": {"name": "Daily Interval for Compulsory Regeneration", "unit": "Days", "type": "number", "dict": None, "access": "rw", "base64": False, "code": "142"},
  #   "D_H_9": {"name": "Nominal Flow Monitoring", "unit": None, "type": "string", "dict": {"0": "Deactivated", "1": "Activated"}, "access": "rw", "base64": False, "code": "142"},
  #   "D_H_11": {"name": "Residual Capacity Limit Value", "unit": "%", "type": "number", "dict": None, "access": "rw", "base64": False, "code": "142"},
  #   "D_H_12": {"name": "Monitoring Blending", "unit": None, "type": "String", "dict": {"0": "No Message, No reaction", "1": "Message text+fault alarm contact"}, "access": "rw", "base64": False, "code": "142"},
- #   "D_H_13": {"name": "Brightness Led Strip", "unit": "%", "type": "number", "dict": None, "access": "rw", "base64": False, "code": "142"},
- #   "D_H_14": {"name": "Monitoring Water Loss and Flow Direction", "unit": None, "type": "string", "dict": {"0": "Deactivated", "1": "Activated"}, "access": "rw", "base64": False, "code": "142"},
+    "D_H_13": {"name": "Brightness Led Strip", "unit": "%", "type": "number", "dict": None, "access": "rw", "base64": False, "code": "142"},
+    "D_H_14": {"name": "Monitoring Water Loss and Flow Direction", "unit": None, "type": "string", "dict": {"0": "Deactivated", "1": "Activated"}, "access": "rw", "base64": False, "code": "142"},
 
     # ---------------------------------------------------------
     # Hydraulic Values: code 121
@@ -290,20 +290,21 @@ PARAMETERS = {
     "D_K_5": {"name": "Chlorine Current", "unit": "mAh", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
     "D_K_6": {"name": "Steps Display Exhanger Tank 1", "unit": None, "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
     "D_K_7": {"name": "Steps Display Exhanger Tank 2", "unit": None, "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
-    "D_K_8_1": {"name": "Average consumption - Monday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
-    "D_K_8_2": {"name": "Average consumption - Tuesday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
-    "D_K_8_3": {"name": "Average consumption - Wendesday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
-    "D_K_8_4": {"name": "Average consumption - Thursday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
-    "D_K_8_5": {"name": "Average consumption - Friday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
-    "D_K_8_6": {"name": "Average consumption - Saturday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
-    "D_K_8_7": {"name": "Average consumption - Sunday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
-    "D_K_9_1": {"name": "Standart Deviation - Monday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
-    "D_K_9_2": {"name": "Standart Deviation - Tuesday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
-    "D_K_9_3": {"name": "Standart Deviation - Wendesday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
-    "D_K_9_4": {"name": "Standart Deviation - Thursday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
-    "D_K_9_5": {"name": "Standart Deviation - Friday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
-    "D_K_9_6": {"name": "Standart Deviation - Saturday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
-    "D_K_9_7": {"name": "Standart Deviation - Sunday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
+    #Below values for last weeks consumption deactivated - makes no sense in home assistant, where a utility meter makes more sense
+ #   "D_K_8_1": {"name": "Average consumption - Monday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
+ #   "D_K_8_2": {"name": "Average consumption - Tuesday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
+ #   "D_K_8_3": {"name": "Average consumption - Wendesday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
+ #   "D_K_8_4": {"name": "Average consumption - Thursday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
+ #   "D_K_8_5": {"name": "Average consumption - Friday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
+ #   "D_K_8_6": {"name": "Average consumption - Saturday", "unit": "l", "type": "number", "dict": None, "access":("r",), 'base64': False, 'code': '245'},
+ #   "D_K_8_7": {"name": "Average consumption - Sunday", "unit": "l", "type":("number"), 'dict': None, 'access': ("r",), 'base64': False, 'code': '245'},
+ #   "D_K_9_1": {"name": "Standart Deviation - Monday",("unit"): ("l"), ("type"): ("number"), ("dict"): None, ("access"): ("r"), ("base64"): False, ("code"): ("245")},
+ #   "D_K_9_2": {"name": "Standart Deviation - Tuesday",("unit"): ("l"), ("type"): ("number"), ("dict"): None, ("access"): ("r"), ("base64"): False, ("code"): ("245")},
+ #   "D_K_9_3": {"name": "Standart Deviation - Wendesday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
+ #   "D_K_9_4": {"name": "Standart Deviation - Thursday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
+ #   "D_K_9_5": {"name": "Standart Deviation - Friday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
+ #   "D_K_9_6": {"name": "Standart Deviation - Saturday", "unit": "l", "type": "number", "dict": None, "access": "r", "base64": False, "code": "245"},
+ #   "D_K_9_7": {"name": "Standart Deviation - Sunday", "unit": "l", "type": "number", "dict": None, "access": "r",("base64"): False, ("code"): ("245")},
 
     # ---------------------------------------------------------
     # Error Memory & Change History: code 005

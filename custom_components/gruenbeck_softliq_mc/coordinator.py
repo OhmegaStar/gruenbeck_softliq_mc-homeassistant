@@ -24,25 +24,18 @@ class GruenbeckCoordinator(DataUpdateCoordinator):
         )
         self.client = client
 
-        # Split parameters into normal and code=005
-        self.normal_params = [p for p, m in PARAMETERS.items() if m.get("code") is None]
-        self.code_005_params = [p for p, m in PARAMETERS.items() if m.get("code") == "005"]
-        self.code_290_params = [p for p, m in PARAMETERS.items() if m.get("code") == "290"]
+        # Group scattered map entries so each protected code section is fetched once.
+        self.params_by_code: dict[str | None, list[str]] = {}
+        for param, metadata in PARAMETERS.items():
+            code = metadata.get("code")
+            self.params_by_code.setdefault(code, []).append(param)
 
     async def _async_update_data(self):
         """Fetch all parameters in batches."""
         try:
-            # Normal parameters
-            normal_resp = await self.client.get_params(self.normal_params)
-
-            # Code=005 parameters
-            code_005_resp = await self.client.get_params(self.code_005_params, code="005")
-
-            # Code=290 parameters
-            code_290_resp = await self.client.get_params(self.code_290_params, code="290")
-
             data = {}
-            for response in (normal_resp, code_005_resp, code_290_resp):
+            for code, params in self.params_by_code.items():
+                response = await self.client.get_params(params, code=code)
                 if isinstance(response, dict) and "data" in response:
                     response = response["data"]
                 if isinstance(response, dict):
