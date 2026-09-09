@@ -96,6 +96,15 @@ og versionering følger **Semantic Versioning**.
  custom_components/gruenbeck_softliq_mc/parameter_map.py | 6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 ```
+## [0.1.9] - 2026-09-09
+### Changed
+- pass the proper volume_flow_rate constant for device class (98abc68)
+
+### Files changed
+```text
+ custom_components/gruenbeck_softliq_mc/sensor.py | 2 ++
+ 1 file changed, 2 insertions(+)
+```
 ## [Unreleased]
 ### Added
 - Intet endnu.
@@ -136,6 +145,7 @@ og versionering følger **Semantic Versioning**.
 - Parameter‑mapping og test scripts.
 
 ---
+
 
 
 
