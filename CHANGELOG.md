@@ -87,6 +87,15 @@ og versionering følger **Semantic Versioning**.
  tools/device_probe.py                              | 54 ++++++++++++++++-----
  3 files changed, 77 insertions(+), 53 deletions(-)
 ```
+## [0.1.8] - 2026-09-09
+### Changed
+- set correct device, and state class for flow measure sensors (6895859)
+
+### Files changed
+```text
+ custom_components/gruenbeck_softliq_mc/parameter_map.py | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+```
 ## [Unreleased]
 ### Added
 - Intet endnu.
@@ -127,6 +136,7 @@ og versionering følger **Semantic Versioning**.
 - Parameter‑mapping og test scripts.
 
 ---
+
 
 
 
