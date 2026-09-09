@@ -49,7 +49,7 @@ PARAMETERS = {
     # Current Values In General:
     # ---------------------------------------------------------
     #id=943&show=D_A_1_7|D_A_2_3|D_A_1_6|D_A_2_2|D_K_1|D_K_2|D_Y_5|D_Y_13~
-    "D_A_1_7": {"name": "Current flow total", "unit": "m³/h", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
+    "D_A_1_7": {"name": "Current flow total", "unit": "m³/h", "type": "number", "dict": None, "access": "r", "base64": False, "code": None, "device_class": "volume_flow_rate", "state_class": "measurement"},
     "D_A_2_3": {"name": "Salt range", "unit": "days", "type": "string", "dict": None, "access": "r", "base64": False, "code": None},
     "D_A_1_6": {"name": "Actual value soft water hardness", "unit": "°dH", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
     "D_A_2_2": {"name": "Days till Maintenance Due", "unit": "days", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
@@ -67,7 +67,7 @@ PARAMETERS = {
     # ---------------------------------------------------------
     #id=943&show=D_A_1_1|D_A_1_3|D_A_1_2|D_Y_10_1|D_A_2_1|D_A_3_1|D_A_1_4|D_A_1_8|D_A_1_5|D_Y_10_2|D_A_2_4|D_A_3_4~
     #Tank 1
-    "D_A_1_1": {"name": "Tank 1 Current Flow", "unit": "m³/h", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
+    "D_A_1_1": {"name": "Tank 1 Current Flow", "unit": "m³/h", "type": "number", "dict": None, "access": "r", "base64": False, "code": None, "device_class": "volume_flow_rate", "state_class": "measurement"},
     "D_A_1_3": {"name": "Tank 1 Capacity Rate", "unit": "m³ x °dH", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
     "D_A_1_2": {"name": "Tank 1 Residual Capacity", "unit": "m³", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
     "D_Y_10_1": {"name": "Tank 1 Capacity Remanining %", "unit": "%", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
@@ -75,7 +75,7 @@ PARAMETERS = {
     "D_A_3_1": {"name": "Tank 1 Time of Last Regeneration", "unit": None, "type": None, "dict": None, "access": "r", "base64": False, "code": None, "device_class": "timestamp", "state_class": None},
 
     #Tank 2
-    "D_A_1_4": {"name": "Tank 2 Current Flow", "unit": "m³/h", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
+    "D_A_1_4": {"name": "Tank 2 Current Flow", "unit": "m³/h", "type": "number", "dict": None, "access": "r", "base64": False, "code": None, "device_class": "volume_flow_rate", "state_class": "measurement"},
     "D_A_1_8": {"name": "Tank 2 Capacity Rate", "unit": "m³ x °dH", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
     "D_A_1_5": {"name": "Tank 2 Residual Capacity", "unit": "m³", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
     "D_Y_10_2": {"name": "Tank 2 Capacity Remanining %", "unit": "%", "type": "number", "dict": None, "access": "r", "base64": False, "code": None},
