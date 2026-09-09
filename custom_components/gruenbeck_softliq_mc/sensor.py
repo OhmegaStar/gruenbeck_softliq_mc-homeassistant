@@ -71,6 +71,8 @@ class GruenbeckMCSensor(CoordinatorEntity, SensorEntity):
             self._attr_device_class = SensorDeviceClass.WATER
         elif meta.get("device_class") == "timestamp":
             self._attr_device_class = SensorDeviceClass.TIMESTAMP
+        elif meta.get("device_class") == "volume_flow_rate":
+            self._attr_device_class = SensorDeviceClass.VOLUME_FLOW_RATE
 
         # State class
         if meta.get("state_class") == "measurement":
