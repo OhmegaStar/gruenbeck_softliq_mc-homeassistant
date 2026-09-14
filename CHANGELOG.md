@@ -105,6 +105,16 @@ og versionering følger **Semantic Versioning**.
  custom_components/gruenbeck_softliq_mc/sensor.py | 2 ++
  1 file changed, 2 insertions(+)
 ```
+## [0.2.0] - 2026-09-14
+### Changed
+- fix: add measurement state classes and correct water volume units (5e32029)
+
+### Files changed
+```text
+ .../gruenbeck_softliq_mc/parameter_map.py          | 42 +++++++++++-----------
+ custom_components/gruenbeck_softliq_mc/sensor.py   |  1 +
+ 2 files changed, 22 insertions(+), 21 deletions(-)
+```
 ## [Unreleased]
 ### Added
 - Intet endnu.
@@ -145,6 +155,7 @@ og versionering følger **Semantic Versioning**.
 - Parameter‑mapping og test scripts.
 
 ---
+
 
 
 
