@@ -64,6 +64,7 @@ class GruenbeckMCSensor(CoordinatorEntity, SensorEntity):
         self._attr_unique_id = f"{entry_id}_{param}"
         self._attr_name = meta.get("name", param)
         self._attr_native_unit_of_measurement = meta.get("unit")
+        self._attr_suggested_display_precision = meta.get("precision")
         self._state = None
 
         # Device class
