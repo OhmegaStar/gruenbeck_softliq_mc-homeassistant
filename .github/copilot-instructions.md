@@ -1,0 +1,41 @@
+# Copilot instructions for ad-growatt
+
+## Project context
+- This repository is a HACS Extension for Home Assistant, an integration that exposes a Grüenbeck SoftLiQ MC Watersoftener to Home Assistant.
+- Prefer small, surgical changes that preserve the existing code patterns and configuration structure.
+- Keep Home Assistant an HACS compatibility in mind before changing entity names, secrets, or service wiring.
+
+## Working practices
+- Keep changes focused on the root cause; do not broaden the scope unless required.
+- Prefer explicit validation for secrets, session state, and API responses before writing settings to the inverter.
+- Preserve existing naming conventions used by the Home Assistant entities.
+- When changing user-facing behavior, including adding new features or modifying existing ones, update the relevant docs and release notes in the same patch.
+
+## Repo workflow
+- Maintain the active task list in `TODO.md` and keep it updated as work progresses.
+- Use `CHANGELOG.md` for notable changes and release history.
+- Use `tools/release.ps1` to prepare and publish tagged releases using Semantic Versioning.
+- The release payload is limited to the `custom_components/` and `hacs.json` file. Files outside those folders are repo maintenance files and are not part of a deployable release payload unless intentionally added.
+
+## Release process
+1. Commit the intended changes.
+2. Ensure the diff for the release is limited to `custom_components/` and `hacs.json`.
+3. Run the release helper:
+   `pwsh -File .\tools\release.ps1 -Version 0.1.1`
+4. Use `-Push` only when ready to create and push the tag.
+5. The GitHub Action in `.github/workflows/release.yml` will create the GitHub Release from the tag.
+
+## Safety notes
+- The Gruenbeck MC Webserver is slow and single-threaded. Avoid sending multiple requests in parallel, and avoid sending requests too frequently. The default scan interval is 90 seconds, which is a good starting point.
+
+## Project Decisions
+- Record any project-level decisions here.
+
+## Commit Messages
+- Write commit messages for human readers. Use a specific subject that describes the change, and add a concise body when it helps explain why or clarify scope. Use bullet lists for listing several distinct changes that need listing. use sections to separate different types of changes. Use the imperative mood in the subject line, e.g., "Add feature" instead of "Added feature" or "Adding feature".
+
+## Release Notes
+- Release notes are generated from commit messages. Use the `\.\tools\release.ps1` script to create a release commit and tag, then push both. GitHub Actions will publish a GitHub Release with generated release notes when the tag is pushed. Omit `-Push` to review the commit and tag before pushing them manually. Combine the commit messages for all changes since the previous release into a single release note. Use bullet lists for listing several distinct changes that need listing. use sections to separate different types of changes. Use meaningful icons such as ✅, ⚠️, 🛠️, and 🔧 when they improve clarity, but keep them consistent and concise so the notes remain easy to scan.
+
+## Maintaining These Instructions
+- When a lasting project preference or decision is established, add a concise, actionable rule here. Do not record secrets or temporary task details. if uncertain, ask the team for consensus before adding a rule. If a rule is later found to be unnecessary or counterproductive, remove it. ask the team for consensus before removing a rule.

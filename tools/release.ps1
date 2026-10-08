@@ -55,6 +55,25 @@ $oldVersion = $manifest.version
 $manifest.version = $Version
 $manifest | ConvertTo-Json -Depth 10 | Set-Content $manifestPath -Encoding utf8
 
+$repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
+$tempRoot = Join-Path ([System.IO.Path]::GetTempPath()) "gruenbeck_softliq_mc-$Version"
+$artifactPath = Join-Path ([System.IO.Path]::GetTempPath()) "gruenbeck_softliq_mc-$Version.zip"
+
+if (Test-Path $tempRoot) {
+    Remove-Item $tempRoot -Recurse -Force
+}
+if (Test-Path $artifactPath) {
+    Remove-Item $artifactPath -Force
+}
+
+New-Item -ItemType Directory -Path $tempRoot -Force | Out-Null
+Copy-Item -Path (Join-Path $repoRoot 'custom_components') -Destination (Join-Path $tempRoot 'custom_components') -Recurse -Force
+Copy-Item -Path (Join-Path $repoRoot 'hacs.json') -Destination (Join-Path $tempRoot 'hacs.json') -Force
+Compress-Archive -Path (Join-Path $tempRoot 'custom_components'), (Join-Path $tempRoot 'hacs.json') -DestinationPath $artifactPath -Force
+
+Write-Host "Release payload archive created at: $artifactPath"
+Write-Host "Archive contains only custom_components/ and hacs.json."
+
 git diff --check
 git add $manifestPath $changelogPath
 git commit -m "Release v$Version"

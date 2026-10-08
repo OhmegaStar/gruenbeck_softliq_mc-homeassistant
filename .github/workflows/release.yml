@@ -43,10 +43,27 @@ jobs:
             exit 1
           fi
 
+      - name: Build release payload
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          ARTIFACT="gruenbeck_softliq_mc-${VERSION}.zip"
+
+          rm -f "$ARTIFACT"
+          zip -r "$ARTIFACT" custom_components hacs.json
+
+          if [[ ! -s "$ARTIFACT" ]]; then
+            echo "Release payload archive was not created."
+            exit 1
+          fi
+
+          unzip -l "$ARTIFACT" | sed -n '1,20p'
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
         with:
           tag_name: "${{ github.ref_name }}"
           name: "${{ github.ref_name }}"
           body_path: release-notes.md
+          files: |
+            gruenbeck_softliq_mc-*.zip
           generate_release_notes: true

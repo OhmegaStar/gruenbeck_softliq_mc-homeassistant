@@ -24,7 +24,7 @@ Supports:
 - Remaining exchanger capacity
 - Peak flow statistics (MC32)
 
-### ✔ Switches
+### ✔ Switches (still work in progress)
 - Operating mode
 - LED ring behavior
 - LED blink on salt warning

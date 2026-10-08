@@ -49,6 +49,7 @@ The release script uses commits after the latest release tag to generate the new
    - Add a file-change summary since that tag.
    - Insert a dated `0.1.3` section into `CHANGELOG.md`.
    - Update `manifest.json` to `0.1.3`.
+   - Build a temporary release payload archive containing only `custom_components/` and `hacs.json`.
    - Create a `Release v0.1.3` commit and `v0.1.3` tag.
 
 4. Review the generated release commit and changelog:
